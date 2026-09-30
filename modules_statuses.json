@@ -1,0 +1,6 @@
+{
+    "Core": true,
+    "Security": true,
+    "Companies": true,
+    "Inventories": true
+}
