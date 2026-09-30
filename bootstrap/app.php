@@ -25,6 +25,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'password.changed' => EnsurePasswordChanged::class,
         ]);
 
+        // En Dokploy la API está detrás del proxy (Traefik): así se registra la IP real del usuario
+        // en accesos y sesiones, y el límite de intentos de login (por IP) no se comparte entre todos.
+        $middleware->trustProxies(at: '*');
+
         // Es una API: nunca redirigir a una pantalla de login.
         $middleware->redirectGuestsTo(fn (Request $request) => $request->is('api/*') ? null : '/');
 
